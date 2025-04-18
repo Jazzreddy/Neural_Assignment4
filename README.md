@@ -1,20 +1,29 @@
-Homeassignment4
-README - Home Assignment 4 (Neural Networks and Deep Learning)
-Student Information
-Name: Jaswanth Reddy Donapati Course: CS5720 Neural Networks and Deep Learning
-University: University of Central Missouri
-Student ID : 700757646 
+# Homeassignment4
+# README - Home Assignment 4 (Neural Networks and Deep Learning)
 
-Description
+## Student Information
+*Name:* Ashritha Reddy Katta
+*Course:* CS5720 Neural Networks and Deep Learning  
+*Semester:* Spring 2025  
+*University:* University of Central Missouri  
+*Student ID :* 700755460
+*Submission Date:* 4/17/2025
+
+## 🔧 Description
+
 This repo contains solutions for the following NLP and Attention-related tasks:
 
-NLP Preprocessing (Tokenization, Stopword Removal, Stemming)
-Named Entity Recognition using SpaCy
-Scaled Dot-Product Attention implementation from scratch
-Sentiment Analysis using HuggingFace Transformers
-Run Instructions
-All scripts are written in Python 3
-Install dependencies using:
+1. *NLP Preprocessing* (Tokenization, Stopword Removal, Stemming)
+2. *Named Entity Recognition* using SpaCy
+3. *Scaled Dot-Product Attention* implementation from scratch
+4. *Sentiment Analysis* using HuggingFace Transformers
+
+## 🚀 Run Instructions
+
+- All scripts are written in Python 3
+- Install dependencies using:
+
+```bash
 pip install nltk spacy transformers
 python -m nltk.downloader punkt stopwords
 python -m spacy download en_core_web_sm
@@ -31,17 +40,17 @@ Lemmatization returns the base dictionary form of a word, using linguistic knowl
 
 Ex: "running" → "run" (but "better" → "good")
 
-Lemmatization is more accurate but slower. Stemming is faster but may not return valid words.
+✅ Lemmatization is more accurate but slower. Stemming is faster but may not return valid words.
 
 2. Why Remove Stop Words?
 
-Useful:
+✅ Useful:
 
 Speeds up processing
 
 Reduces noise in classification tasks (like spam detection or sentiment analysis)
 
-Harmful:
+⚠️ Harmful:
 
 Can remove meaningful context in some cases (e.g., "to be or not to be" — all are stop words!)
 
