@@ -1,0 +1,125 @@
+Q1: NLP Preprocessing Pipeline
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+
+# Download necessary resources
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('punkt_tab') # Download the punkt_tab resource
+
+def nlp_preprocessing(sentence):
+    # 1. Tokenization
+    tokens = word_tokenize(sentence)
+    print("Original Tokens:", tokens)
+
+    # 2. Remove stopwords
+    stop_words = set(stopwords.words('english'))
+    filtered_tokens = [word for word in tokens if word.lower() not in stop_words]
+    print("Tokens Without Stopwords:", filtered_tokens)
+
+    # 3. Stemming
+    stemmer = PorterStemmer()
+    stemmed = [stemmer.stem(word) for word in filtered_tokens]
+    print("Stemmed Words:", stemmed)
+
+# Test Sentence
+sentence = "NLP techniques are used in virtual assistants like Alexa and Siri."
+nlp_preprocessing(sentence)
+     
+[nltk_data] Downloading package punkt to /root/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[nltk_data] Downloading package stopwords to /root/nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+[nltk_data] Downloading package punkt_tab to /root/nltk_data...
+[nltk_data]   Unzipping tokenizers/punkt_tab.zip.
+Original Tokens: ['NLP', 'techniques', 'are', 'used', 'in', 'virtual', 'assistants', 'like', 'Alexa', 'and', 'Siri', '.']
+Tokens Without Stopwords: ['NLP', 'techniques', 'used', 'virtual', 'assistants', 'like', 'Alexa', 'Siri', '.']
+Stemmed Words: ['nlp', 'techniqu', 'use', 'virtual', 'assist', 'like', 'alexa', 'siri', '.']
+
+#Q2: Named Entity Recognition with SpaCy
+import spacy
+
+# Load the small English model
+nlp = spacy.load("en_core_web_sm")
+
+# Input sentence
+sentence = "Barack Obama served as the 44th President of the United States and won the Nobel Peace Prize in 2009."
+
+# Process the text
+doc = nlp(sentence)
+
+# Extract and print entities
+print("Named Entities:\n")
+for ent in doc.ents:
+    print(f"Text: {ent.text}, Label: {ent.label_}, Start: {ent.start_char}, End: {ent.end_char}")
+
+     
+Named Entities:
+
+Text: Barack Obama, Label: PERSON, Start: 0, End: 12
+Text: 44th, Label: ORDINAL, Start: 27, End: 31
+Text: the United States, Label: GPE, Start: 45, End: 62
+Text: the Nobel Peace Prize, Label: WORK_OF_ART, Start: 71, End: 92
+Text: 2009, Label: DATE, Start: 96, End: 100
+
+#Q3: Scaled Dot-Product Attention
+import numpy as np
+from scipy.special import softmax
+
+def scaled_dot_product_attention(Q, K, V):
+    d_k = Q.shape[-1]  # dimension of keys
+
+    # 1. Dot product of Q and K^T
+    scores = np.dot(Q, K.T)
+
+    # 2. Scale the scores
+    scaled_scores = scores / np.sqrt(d_k)
+
+    # 3. Apply softmax
+    attention_weights = softmax(scaled_scores, axis=1)
+
+    # 4. Multiply weights with V
+    output = np.dot(attention_weights, V)
+
+    print("Attention Weights:\n", attention_weights)
+    print("Output:\n", output)
+
+# Inputs
+Q = np.array([[1, 0, 1, 0], [0, 1, 0, 1]])
+K = np.array([[1, 0, 1, 0], [0, 1, 0, 1]])
+V = np.array([[1, 2, 3, 4], [5, 6, 7, 8]])
+
+scaled_dot_product_attention(Q, K, V)
+
+     
+Attention Weights:
+ [[0.73105858 0.26894142]
+ [0.26894142 0.73105858]]
+Output:
+ [[2.07576569 3.07576569 4.07576569 5.07576569]
+ [3.92423431 4.92423431 5.92423431 6.92423431]]
+
+#Q4: Sentiment Analysis with HuggingFace Transformers
+from transformers import pipeline
+
+# Load sentiment pipeline
+classifier = pipeline("sentiment-analysis")
+
+# Input sentence
+sentence = "Despite the high price, the performance of the new MacBook is outstanding."
+
+# Analyze sentiment
+result = classifier(sentence)[0]
+
+# Output
+print(f"Sentiment: {result['label']}")
+print(f"Confidence Score: {result['score']:.4f}")
+
+     
+No model was supplied, defaulted to distilbert/distilbert-base-uncased-finetuned-sst-2-english and revision 714eb0f (https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english).
+Using a pipeline without specifying a model name and revision in production is not recommended.
+Device set to use cpu
+Sentiment: POSITIVE
+Confidence Score: 0.9998
